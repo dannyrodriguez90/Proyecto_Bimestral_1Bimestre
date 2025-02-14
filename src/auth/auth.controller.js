@@ -18,6 +18,7 @@ export const register = async (req, res) => {
             email: user.email
         });
     } catch (err) {
+        console.error("Error al registrar el usuario:", err);
         return res.status(500).json({
             message: "Error al registrar el usuario",
             error: err.message
@@ -26,41 +27,45 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    const { email, username, password } = req.body
-    try{
-        const user = await User.findOne({
-            $or:[{email: email}, {username: username}]
-        })
-        console.log(user)
-        if(!user){
+    const { email, password } = req.body;
+    try {
+        console.log('Buscando usuario');
+        const usuario = await User.findOne({ email: email });
+        console.log(usuario)
+        console.log('Usuario encontrado:', usuario);
+
+        if (!usuario) {
             return res.status(400).json({
-                message: "Crendenciales inválidas",
-                error:"No existe el usuario o correo ingresado"
-            })
+                message: "Credenciales inválidas",
+                error: "No existe el cliente con el correo ingresado"
+            });
         }
 
-        const validPassword = await verify(user.password, password)
+        console.log('Verificando contraseña');
+        const validPassword = await verify(usuario.password, password);
 
-        if(!validPassword){
+        if (!validPassword) {
             return res.status(400).json({
-                message: "Crendenciales inválidas",
+                message: "Credenciales inválidas",
                 error: "Contraseña incorrecta"
-            })
+            });
         }
 
-        const token = await generateJWT(user.id)
+        console.log('Generando token');
+        const token = await generateJWT(usuario.id);
 
         return res.status(200).json({
-            message: "Login successful",
+            message: "Inicio de sesión exitoso",
             userDetails: {
                 token: token,
-                profilePicture: user.profilePicture
+                profilePicture: usuario.profilePicture
             }
-        })
-    }catch(err){
+        });
+    } catch (err) {
+        console.log('Error:', err); 
         return res.status(500).json({
-            message: "login failed, server error",
+            message: "Inicio de sesión fallido, error del servidor",
             error: err.message
-        })
+        });
     }
 }
