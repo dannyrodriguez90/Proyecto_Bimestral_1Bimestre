@@ -1,6 +1,6 @@
 import express from 'express';
 import { register, login } from "./auth.controller.js";
-import { registerValidator, loginValidator } from "../middlewares/auth-validator.js";
+import { registerValidator, loginValidator } from "../middlewares/usuario-validator.js";
 import { uploadProfilePicture } from "../middlewares/multer-uploads.js";
 
 const router = express.Router();

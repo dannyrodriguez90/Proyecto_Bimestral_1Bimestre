@@ -6,6 +6,7 @@ import helmet from "helmet"
 import morgan from "morgan"
 import { dbConnection } from "./mongo.js"
 import authRoutes from "../src/auth/auth.routes.js";
+import usuarioRoutes from "../src/usuario/usuario.routes.js";
 import apiLimiter from "../src/middlewares/rate-limit-validator.js"
 
 
@@ -30,6 +31,7 @@ const conectarDB = async () =>{
 
 const routes = (app) => {
     app.use("/proyectoBimestral/v1/auth", authRoutes);
+    app.use("/proyectoBimestral/v1/usuario", usuarioRoutes);
 };
 
 export const initServer = () => {
