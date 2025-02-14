@@ -28,5 +28,13 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.9",
     "proyecto-bimestral": "file:"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannyrodriguez90/Proyecto_Bimestral_1Bimestre.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dannyrodriguez90/Proyecto_Bimestral_1Bimestre/issues"
+  },
+  "homepage": "https://github.com/dannyrodriguez90/Proyecto_Bimestral_1Bimestre#readme"
 }
